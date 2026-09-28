@@ -1,0 +1,173 @@
+.slider-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.nav-arrow-group {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.glass-arrow-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.glass-arrow-btn:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.glass-arrow-btn:active {
+  transform: scale(0.95);
+}
+
+.testi-viewport {
+  overflow: hidden;
+  width: 100%;
+  border-radius: var(--radius-card);
+  cursor: grab;
+  user-select: none;
+}
+
+.testi-viewport:active {
+  cursor: grabbing;
+}
+
+.testi-track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.testi-slide-item {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.testi-card-box {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.testi-user-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.testi-user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.testi-user-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.testi-name-line {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.testi-name-txt {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.testi-verified {
+  color: #0284c7;
+  opacity: 0.95;
+  flex-shrink: 0;
+}
+
+.testi-role-txt {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.testi-stars-mono {
+  font-size: 0.82rem;
+  color: #f59e0b;
+  letter-spacing: 2px;
+  flex-shrink: 0;
+}
+
+.testi-text-body {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  font-style: italic;
+}
+
+.testi-bottom-tag {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.dots-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+}
+
+.dot-pill {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(15, 23, 42, 0.15);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  padding: 0;
+}
+
+.dot-pill:hover {
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.dot-pill.active {
+  width: 24px;
+  background: linear-gradient(90deg, #7c3aed 0%, #f97316 100%);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.35);
+}

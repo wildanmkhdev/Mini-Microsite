@@ -1,0 +1,312 @@
+.pure-filter-tabs {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  scrollbar-width: none;
+  justify-content: center;
+}
+
+.pure-filter-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-pill {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 0.4rem 0.95rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+}
+
+.filter-pill:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: var(--text-main);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+}
+
+.filter-pill.active {
+  background: linear-gradient(90deg, #7c3aed 0%, #a855f7 50%, #f97316 100%);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(168, 85, 247, 0.35);
+}
+
+.pricelist-vertical-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.pure-glass-card {
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-thumb-wrap {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.card-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card-thumb-wrap:hover .card-thumb-img {
+  transform: scale(1.04);
+}
+
+.thumb-glass-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.25);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.card-thumb-wrap:hover .thumb-glass-overlay {
+  opacity: 1;
+}
+
+.glass-chip {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid #ffffff;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.15);
+}
+
+.glass-badge-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #ffffff;
+  color: var(--text-main);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.card-info-box {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.card-heading-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.card-pkg-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.price-tag-group {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+}
+
+.old-price {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.main-price {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.card-pkg-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.pure-feature-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.pure-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.feature-check-icon {
+  color: #7c3aed;
+  opacity: 0.95;
+  flex-shrink: 0;
+}
+
+/* Radiant Gradient Order Button */
+.order-glass-btn {
+  padding: 0.85rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+  background: linear-gradient(90deg, #7c3aed 0%, #a855f7 50%, #f97316 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 24px -4px rgba(168, 85, 247, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.order-glass-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -2px rgba(168, 85, 247, 0.5), inset 0 1px 0 #ffffff;
+  filter: brightness(1.05);
+}
+
+/* Modal Frosted White Glass */
+.pure-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  z-index: 100;
+}
+
+.pure-modal-box {
+  width: 100%;
+  max-width: 400px;
+  overflow: hidden;
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid #ffffff;
+  box-shadow: 0 25px 60px -10px rgba(15, 23, 42, 0.25);
+}
+
+.modal-x-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.modal-x-btn:hover {
+  background: #ffffff;
+  transform: scale(1.05);
+}
+
+.pure-modal-cover {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.pure-modal-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.modal-top-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.modal-item-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.modal-item-price {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.modal-item-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.modal-bullet-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.bullet-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}

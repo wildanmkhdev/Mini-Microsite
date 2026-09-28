@@ -1,0 +1,131 @@
+.linktree-block {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.wa-minimal-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  width: 100%;
+}
+
+/* Minimalist Full Capsule Pill Button */
+.wa-compact-btn {
+  width: 100%;
+  padding: 0.8rem 1.45rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 54px;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 9999px; /* Full capsule rounded shape */
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: 0 8px 24px -6px rgba(15, 23, 42, 0.05), inset 0 1px 0 #ffffff;
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.wa-compact-btn:hover {
+  background: #ffffff;
+  border-color: rgba(34, 197, 94, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -4px rgba(34, 197, 94, 0.22), inset 0 1px 0 #ffffff;
+}
+
+.wa-compact-btn:active {
+  transform: translateY(0);
+}
+
+/* The Animated Bounce Effect */
+.wa-bounce-target {
+  animation: waFloatingBounce 3.6s ease-in-out infinite;
+  border-color: rgba(34, 197, 94, 0.35);
+  box-shadow: 0 8px 24px -4px rgba(34, 197, 94, 0.15), inset 0 1px 0 #ffffff;
+}
+
+@keyframes waFloatingBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 28px -4px rgba(34, 197, 94, 0.25), inset 0 1px 0 #ffffff;
+  }
+}
+
+/* Icon & Live Radar Dot */
+.wa-icon-wrapper {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #16a34a;
+  flex-shrink: 0;
+}
+
+.wa-svg-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.wa-radar-dot {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 8px;
+  height: 8px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  border: 1.5px solid #ffffff;
+  animation: radarPing 2s infinite;
+}
+
+@keyframes radarPing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+/* Clean Centered Title Text */
+.wa-title-text {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+  flex: 1;
+  text-align: left;
+  margin-left: 0.75rem;
+}
+
+/* Right Action Arrow */
+.wa-action-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.wa-compact-btn:hover .wa-action-icon {
+  color: var(--text-main);
+  transform: translate(2px, -2px);
+}
