@@ -1,104 +1,276 @@
-import React, { useState } from 'react';
-import { Check, ArrowRight, Eye, X, MessageSquare } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import {
+  FileText,
+  GraduationCap,
+  BookOpen,
+  Presentation,
+  FileCode,
+  FileSpreadsheet,
+  Newspaper,
+  Briefcase,
+  Languages,
+  Search,
+  CheckCircle2,
+  ArrowRight,
+  Eye,
+  X,
+  Clock,
+  ShieldCheck,
+  RefreshCw,
+  MessageCircle,
+  BadgePercent
+} from 'lucide-react';
+import { openRotatedWhatsApp } from '../utils/waRotator';
 import './PriceList.css';
 
 export default function PriceList() {
   const [activeCategory, setActiveCategory] = useState('all');
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
 
-  const categories = [
-    { id: 'all', label: 'Semua Layanan' },
-    { id: 'tugas', label: 'Tugas & PR' },
-    { id: 'makalah', label: 'Makalah & Esai' },
-    { id: 'ppt', label: 'Slide PPT' },
-    { id: 'skripsi', label: 'Skripsi & Olah Data' }
-  ];
-
-  const packages = [
+  // 17 Layanan Resmi Sesuai Poster Jasa Joki Tugas Indonesia
+  const priceItems = [
     {
       id: 1,
-      title: 'Tugas Harian & PR Express',
-      category: 'tugas',
-      badge: 'Best Seller',
-      price: 'Mulai Rp 25.000',
-      originalPrice: 'Rp 50.000',
-      image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80',
-      description: 'Pengerjaan tugas harian, rangkuman materi, kuis online, dan PR sekolah/kuliah tepat waktu.',
-      features: [
-        'Bisa Deadline Kilat (1-3 Jam Selesai)',
-        'Hasil Pengerjaan Rapi & Teliti',
-        'Free Revisi Sesuai Soal Tugas',
-        'Privasi 100% Terjaga Aman'
-      ],
-      adminTarget: '6281234567890'
+      title: 'Laporan PKL SMK',
+      category: 'laporan',
+      price: 'Rp 4.000',
+      unit: 'per lembar',
+      icon: FileText,
+      desc: 'Penyusunan laporan Praktik Kerja Lapangan tingkat SMK/SMA rapi sesuai format sekolah.'
     },
     {
       id: 2,
-      title: 'Makalah, Esai & Jurnal Ilmiah',
-      category: 'makalah',
-      badge: 'Populer',
-      price: 'Mulai Rp 75.000',
-      originalPrice: 'Rp 150.000',
-      image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80',
-      description: 'Penyusunan karya tulis, resume jurnal internasional/nasional, dan makalah akademik berstandar tinggi.',
-      features: [
-        'Format Sesuai Pedoman Kampus/Sekolah',
-        'Daftar Pustaka Resmi (APA / IEEE / Harvard)',
-        'Lolos Uji Turnitin (Bebas Plagiarisme)',
-        'File Word DOCX & PDF Siap Kumpul'
-      ],
-      adminTarget: '6281234567890'
+      title: 'Laporan PKL Anak Kuliah',
+      category: 'laporan',
+      price: 'Rp 6.000',
+      unit: 'per halaman',
+      icon: GraduationCap,
+      desc: 'Laporan PKL/Magang mahasiswa terstruktur lengkap dengan bab pembahasan & lampiran.'
     },
     {
       id: 3,
-      title: 'Desain PPT & Slide Presentasi',
-      category: 'ppt',
-      badge: 'Favorit',
-      price: 'Mulai Rp 45.000',
-      originalPrice: 'Rp 90.000',
-      image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=80',
-      description: 'Desain presentasi PowerPoint estetik, modern, dan interaktif yang siap dipresentasikan di depan kelas.',
-      features: [
-        'Desain Menarik, Visual & Modern',
-        'Penyusunan Poin Materi Padat & Jelas',
-        'Animasi & Transisi Slide Profesional',
-        'Format Lengkap (.pptx dan .pdf)'
-      ],
-      adminTarget: '6281234567890'
+      title: 'Makalah Anak SMA',
+      category: 'makalah',
+      price: 'Rp 4.000',
+      unit: 'per lembar',
+      icon: BookOpen,
+      desc: 'Penyusunan karya tulis makalah SMA beserta cover, kata pengantar, dan daftar pustaka.'
     },
     {
       id: 4,
-      title: 'Bimbingan Skripsi & Olah Data',
+      title: 'Makalah Anak Kuliah',
+      category: 'makalah',
+      price: 'Rp 6.000',
+      unit: 'per lembar',
+      icon: BookOpen,
+      desc: 'Makalah akademik mahasiswa bersumber jurnal ilmiah terakreditasi dan lolos Turnitin.'
+    },
+    {
+      id: 5,
+      title: 'Proposal Bab 1 – Bab 3',
       category: 'skripsi',
-      badge: 'Spesial',
-      price: 'Mulai Rp 350.000',
-      originalPrice: 'Rp 650.000',
-      image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80',
-      description: 'Bimbingan penyusunan Bab 1-5, olah data statistik (SPSS, SmartPLS, Excel), hingga persiapan sidang skripsi.',
-      features: [
-        'Pengerjaan Bertahap Bab demi Bab',
-        'Olah Data Valid Lengkap Pembahasan',
-        'Free Konsultasi & Revisi Pasca Dosen',
-        'Didampingi Penuh Sampai ACC Sidang'
-      ],
-      adminTarget: '6289876543210'
+      price: 'Rp 1.000.000',
+      unit: '1 Juta',
+      icon: GraduationCap,
+      desc: 'Penyusunan proposal skripsi/karya ilmiah (Latar Belakang, Tinjauan Pustaka, Metode Penelitian).'
+    },
+    {
+      id: 6,
+      title: 'Proposal Bab 4 – Bab 5',
+      category: 'skripsi',
+      price: 'Rp 700.000',
+      unit: 'Tujuh Ratus Ribu',
+      icon: GraduationCap,
+      desc: 'Hasil pembahasan, analisis temuan penelitian, kesimpulan, dan saran siap sidang.'
+    },
+    {
+      id: 7,
+      title: 'PPT SMK / Anak Kuliah',
+      category: 'ppt',
+      price: 'Rp 3.500',
+      unit: 'per slide',
+      icon: Presentation,
+      desc: 'Slide presentasi modern, estetik, ringkas, dan visual menarik untuk tugas sekolah & kuliah.'
+    },
+    {
+      id: 8,
+      title: 'PPT Sidang Skripsi',
+      category: 'ppt',
+      price: 'Rp 5.000',
+      unit: 'per slide',
+      icon: Presentation,
+      desc: 'Slide presentasi sidang komprehensif, animasi elegan, dan fokus poin penilaian dosen penguji.'
+    },
+    {
+      id: 9,
+      title: 'CV Lamaran Pekerjaan DLL',
+      category: 'karir',
+      price: 'Rp 15.000',
+      unit: 'per berkas',
+      icon: Briefcase,
+      desc: 'Desain CV ATS-friendly atau kreatif profesional siap apply lowongan BUMN & swasta.'
+    },
+    {
+      id: 10,
+      title: 'Surat Lamaran Pekerjaan',
+      category: 'karir',
+      price: 'Rp 15.000',
+      unit: 'per surat',
+      icon: Briefcase,
+      desc: 'Cover letter tertarget dengan tata bahasa profesional yang memikat HRD.'
+    },
+    {
+      id: 11,
+      title: 'Kliping',
+      category: 'tugas',
+      price: 'Rp 6.000',
+      unit: 'per halaman',
+      icon: FileText,
+      desc: 'Penyusunan kliping artikel/berita tematik lengkap dengan ulasan ringkas.'
+    },
+    {
+      id: 12,
+      title: 'Tugas Coding',
+      subtitle: '(Web, App, Script, dll)',
+      category: 'tugas',
+      price: 'Mulai Rp 30.000',
+      unit: '',
+      icon: FileCode,
+      desc: 'Pengerjaan tugas pemrograman HTML, CSS, JS, Python, PHP, C++, database MySQL, dll.'
+    },
+    {
+      id: 13,
+      title: 'Tugas Umum Lainnya',
+      subtitle: '(Ringkasan, Resume, Review Jurnal, dll)',
+      category: 'tugas',
+      price: 'Mulai Rp 10.000',
+      unit: '',
+      icon: FileText,
+      desc: 'Rangkuman materi, resume kuliah, review jurnal nasional/internasional, dan kuis tugas.'
+    },
+    {
+      id: 14,
+      title: 'Terjemahan',
+      subtitle: '(Indonesia - Inggris / Sebaliknya)',
+      category: 'tugas',
+      price: 'Rp 7.000',
+      unit: 'per halaman',
+      icon: Languages,
+      desc: 'Penerjemahan akurat dengan susunan kalimat natural (bukan Google Translate mentah).'
+    },
+    {
+      id: 15,
+      title: 'Analisis Data',
+      subtitle: '(SPSS, Excel, dll)',
+      category: 'skripsi',
+      price: 'Mulai Rp 25.000',
+      unit: '',
+      icon: FileSpreadsheet,
+      desc: 'Olah data statistik valid: Uji Validitas, Reliabilitas, Regresi, Hipotesis, dan interpretasi.'
+    },
+    {
+      id: 16,
+      title: 'Artikel',
+      subtitle: '(Draft Artikel Ilmiah / Populer)',
+      category: 'makalah',
+      price: 'Rp 30.000',
+      unit: 'per naskah',
+      icon: Newspaper,
+      desc: 'Penulisan naskah artikel ilmiah, opini publik, atau konten blog akademik berkualitas.'
+    },
+    {
+      id: 17,
+      title: 'Artikel Sampai Publish',
+      subtitle: '(Terbit di Jurnal / Media)',
+      category: 'skripsi',
+      price: 'Rp 1.200.000',
+      unit: '1,2 Juta',
+      icon: Newspaper,
+      desc: 'Pendampingan penuh sampai artikel resmi terbit (publish) di jurnal terindeks/media nasional.'
     }
   ];
 
-  const filtered = activeCategory === 'all'
-    ? packages
-    : packages.filter(p => p.category === activeCategory);
+  const categories = [
+    { id: 'all', label: 'Semua (17)' },
+    { id: 'laporan', label: 'Laporan PKL' },
+    { id: 'makalah', label: 'Makalah & Artikel' },
+    { id: 'skripsi', label: 'Skripsi & Olah Data' },
+    { id: 'ppt', label: 'Slide PPT' },
+    { id: 'tugas', label: 'Tugas & Coding' },
+    { id: 'karir', label: 'CV & Lamaran' }
+  ];
 
-  const handleOrder = (pkg) => {
-    const text = `Halo Admin @jokitugasaja_id, saya ingin order paket *${pkg.title}* (${pkg.price}). Mohon bantuan estimasi pengerjaannya ya!`;
-    window.open(`https://wa.me/${pkg.adminTarget}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+  const filteredItems = useMemo(() => {
+    return priceItems.filter((item) => {
+      const matchCategory = activeCategory === 'all' || item.category === activeCategory;
+      const matchSearch =
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (item.subtitle && item.subtitle.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        item.desc.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchCategory && matchSearch;
+    });
+  }, [activeCategory, searchQuery]);
+
+  const handleOrder = (item) => {
+    const text = `Halo Admin @jokitugasaja_id, saya ingin order layanan *${item.title}* (${item.price} ${item.unit || ''}). Mohon bantuan estimasi pengerjaan dan infonya ya kak!`;
+    openRotatedWhatsApp(text, 'random-no-repeat');
   };
 
   return (
     <section className="linktree-block">
-      <p className="section-label">Pricelist & Paket Joki Tugas</p>
+      <div className="pricelist-header-box">
+        <p className="section-label" style={{ margin: 0, textAlign: 'left' }}>
+          Pricelist & Katalog Layanan
+        </p>
+      </div>
 
-      {/* Filter Tabs in Pure Glass */}
+      {/* Hero Guarantee & Poster Quick Link Banner (Solid Clean Colors) */}
+      <div className="promo-guarantee-banner glass-panel">
+        <div className="promo-badge-circle">
+          <span className="promo-badge-top">FREE REVISI</span>
+          <span className="promo-badge-bold">3X</span>
+          <span className="promo-badge-bot">SAMPAI PUAS!</span>
+        </div>
+        <div className="promo-banner-text">
+          <h3 className="promo-title">Garansi Revisi Sampai Kamu Puas!</h3>
+          <p className="promo-desc">
+            Sistem pembayaran di akhir ketika tugas beres. Privasi aman & pengerjaan cepat.
+          </p>
+          <button
+            type="button"
+            className="view-poster-pill"
+            onClick={() => setIsPosterModalOpen(true)}
+          >
+            <Eye size={13} />
+            <span>Lihat Poster Brosur Resmi</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Search Input Bar */}
+      <div className="price-search-bar glass-panel">
+        <Search size={16} className="search-icon" />
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Cari tugas (cth: PKL, Makalah, SPSS, Coding)..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        {searchQuery && (
+          <button
+            type="button"
+            className="search-clear-btn"
+            onClick={() => setSearchQuery('')}
+            aria-label="Hapus pencarian"
+          >
+            <X size={14} />
+          </button>
+        )}
+      </div>
+
+      {/* Category Tabs */}
       <div className="pure-filter-tabs">
         {categories.map((cat) => (
           <button
@@ -112,106 +284,212 @@ export default function PriceList() {
         ))}
       </div>
 
-      {/* Package Cards List */}
-      <div className="pricelist-vertical-stack">
-        {filtered.map((pkg) => (
-          <div key={pkg.id} className="pure-glass-card glass-panel">
-            {/* Thumbnail */}
-            <div className="card-thumb-wrap" onClick={() => setSelectedProduct(pkg)}>
-              <img src={pkg.image} alt={pkg.title} className="card-thumb-img" />
-              <div className="thumb-glass-overlay">
-                <span className="glass-chip">
-                  <Eye size={13} /> Detail Paket
-                </span>
-              </div>
-              <span className="glass-badge-tag">{pkg.badge}</span>
-            </div>
+      {/* Pricing Cards List (No Pill Badges) */}
+      <div className="pricelist-items-container">
+        {filteredItems.length === 0 ? (
+          <div className="no-result-card glass-panel">
+            <p>Tidak ada layanan yang sesuai dengan pencarian "<strong>{searchQuery}</strong>".</p>
+            <button
+              type="button"
+              className="reset-filter-btn"
+              onClick={() => {
+                setSearchQuery('');
+                setActiveCategory('all');
+              }}
+            >
+              Tampilkan Semua Layanan
+            </button>
+          </div>
+        ) : (
+          filteredItems.map((item) => {
+            const IconComponent = item.icon;
+            return (
+              <div key={item.id} className="price-item-card glass-panel">
+                <div className="price-item-top">
+                  <div className="price-item-icon-wrap">
+                    <IconComponent size={18} />
+                  </div>
+                  <div className="price-item-info">
+                    <div className="price-item-title-row">
+                      <h4 className="price-item-name">{item.title}</h4>
+                    </div>
+                    {item.subtitle && <span className="price-item-sub">{item.subtitle}</span>}
+                  </div>
+                </div>
 
-            {/* Info Body */}
-            <div className="card-info-box">
-              <div className="card-heading-row">
-                <h3 className="card-pkg-name">{pkg.title}</h3>
-                <div className="price-tag-group">
-                  <span className="old-price">{pkg.originalPrice}</span>
-                  <span className="main-price">{pkg.price}</span>
+                <p className="price-item-desc">{item.desc}</p>
+
+                <div className="price-item-bottom">
+                  <div className="price-amount-box">
+                    <span className="price-main-val">{item.price}</span>
+                    {item.unit && <span className="price-unit-val">/{item.unit}</span>}
+                  </div>
+                  <button
+                    type="button"
+                    className="order-btn-mini"
+                    onClick={() => handleOrder(item)}
+                    aria-label={`Pesan ${item.title}`}
+                  >
+                    <span>Order WA</span>
+                    <ArrowRight size={13} />
+                  </button>
                 </div>
               </div>
-
-              <p className="card-pkg-desc">{pkg.description}</p>
-
-              {/* Minimal Checkmarks */}
-              <ul className="pure-feature-list">
-                {pkg.features.map((feat, i) => (
-                  <li key={i} className="pure-feature-item">
-                    <Check size={14} className="feature-check-icon" />
-                    <span>{feat}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Direct Order Button as Glass Pill */}
-              <button
-                type="button"
-                className="glass-pill-btn order-glass-btn"
-                onClick={() => handleOrder(pkg)}
-              >
-                <span>Pesan Layanan Ini</span>
-                <ArrowRight size={15} />
-              </button>
-            </div>
-          </div>
-        ))}
+            );
+          })
+        )}
       </div>
 
-      {/* Modal Quick View */}
-      {selectedProduct && (
-        <div className="pure-modal-backdrop" onClick={() => setSelectedProduct(null)}>
-          <div className="pure-modal-box glass-panel" onClick={(e) => e.stopPropagation()}>
-            <button
-              className="modal-x-btn"
-              onClick={() => setSelectedProduct(null)}
-              aria-label="Tutup"
-            >
-              <X size={18} />
-            </button>
+      {/* Section: Kenapa Pilih Kami? (6 Keunggulan Resmi) */}
+      <div className="why-choose-us-block glass-panel">
+        <div className="why-header-row">
+          <h4 className="why-title">Kenapa Pilih Kami?</h4>
+        </div>
+        <div className="why-grid">
+          <div className="why-grid-item">
+            <div className="why-icon-bubble">
+              <Clock size={16} />
+            </div>
+            <div>
+              <strong>Pengerjaan Cepat</strong>
+              <span>Tepat waktu & siap kilat</span>
+            </div>
+          </div>
 
-            <img
-              src={selectedProduct.image}
-              alt={selectedProduct.title}
-              className="pure-modal-cover"
-            />
+          <div className="why-grid-item">
+            <div className="why-icon-bubble">
+              <RefreshCw size={16} />
+            </div>
+            <div>
+              <strong>Revisi Gratis 3x</strong>
+              <span>Revisi sampai kamu puas</span>
+            </div>
+          </div>
 
-            <div className="pure-modal-content">
-              <div className="modal-top-meta">
-                <span className="glass-badge-tag">{selectedProduct.badge}</span>
-                <h3 className="modal-item-title">{selectedProduct.title}</h3>
-                <span className="modal-item-price">{selectedProduct.price}</span>
-              </div>
+          <div className="why-grid-item">
+            <div className="why-icon-bubble">
+              <CheckCircle2 size={16} />
+            </div>
+            <div>
+              <strong>Hasil Rapi</strong>
+              <span>Berkualitas & berstandar</span>
+            </div>
+          </div>
 
-              <p className="modal-item-desc">{selectedProduct.description}</p>
+          <div className="why-grid-item">
+            <div className="why-icon-bubble">
+              <MessageCircle size={16} />
+            </div>
+            <div>
+              <strong>Responsif</strong>
+              <span>Komunikasi ramah 24 jam</span>
+            </div>
+          </div>
 
-              <div className="modal-bullet-box">
-                <span className="bullet-title">Keunggulan & Fasilitas:</span>
-                <ul className="pure-feature-list">
-                  {selectedProduct.features.map((f, idx) => (
-                    <li key={idx} className="pure-feature-item">
-                      <Check size={14} className="feature-check-icon" />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <div className="why-grid-item">
+            <div className="why-icon-bubble">
+              <ShieldCheck size={16} />
+            </div>
+            <div>
+              <strong>Privasi Terjamin</strong>
+              <span>100% aman & terlindungi</span>
+            </div>
+          </div>
 
+          <div className="why-grid-item">
+            <div className="why-icon-bubble">
+              <BadgePercent size={16} />
+            </div>
+            <div>
+              <strong>Harga Bersahabat</strong>
+              <span>Cocok untuk pelajar & mhs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Section: Alur Pemesanan & Catatan Transparan */}
+      <div className="order-flow-box glass-panel">
+        <h4 className="flow-title">Alur Pemesanan Transparan</h4>
+        <div className="flow-steps-list">
+          <div className="flow-step-item">
+            <span className="step-num">1</span>
+            <div className="step-text">
+              <strong>Pembayaran Dilakukan di Akhir</strong>
+              <p>Anda hanya membayar setelah tugas dinyatakan selesai dikerjakan.</p>
+            </div>
+          </div>
+
+          <div className="flow-step-item">
+            <span className="step-num">2</span>
+            <div className="step-text">
+              <strong>Kirim Bukti Screenshot</strong>
+              <p>Kami akan mengirimkan bukti berupa tangkapan layar pengerjaan tugas Anda.</p>
+            </div>
+          </div>
+
+          <div className="flow-step-item">
+            <span className="step-num">3</span>
+            <div className="step-text">
+              <strong>Transfer Pembayaran</strong>
+              <p>Setelah bukti diterima dan sesuai, silakan melakukan transfer pembayaran.</p>
+            </div>
+          </div>
+
+          <div className="flow-step-item">
+            <span className="step-num">4</span>
+            <div className="step-text">
+              <strong>File Master Segera Dikirim</strong>
+              <p>Setelah konfirmasi pembayaran, seluruh file tugas lengkap (.docx / .pdf / .pptx) langsung kami kirimkan.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Lightbox Modal: Poster Pricelist Asli */}
+      {isPosterModalOpen && (
+        <div
+          className="poster-modal-backdrop"
+          onClick={() => setIsPosterModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Poster Price List Resmi"
+        >
+          <div
+            className="poster-modal-dialog glass-panel"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="poster-modal-header">
+              <span className="poster-title-text">Price List Joki Tugas Indonesia</span>
               <button
                 type="button"
-                className="glass-pill-btn order-glass-btn"
+                className="poster-close-btn"
+                onClick={() => setIsPosterModalOpen(false)}
+                aria-label="Tutup poster"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="poster-scroll-stage">
+              <img
+                src="/pricelist.png"
+                alt="Poster Resmi Pricelist Joki Tugas Indonesia"
+                className="poster-full-img"
+              />
+            </div>
+
+            <div className="poster-modal-footer">
+              <button
+                type="button"
+                className="poster-order-wa-btn"
                 onClick={() => {
-                  handleOrder(selectedProduct);
-                  setSelectedProduct(null);
+                  openRotatedWhatsApp('Halo Admin @jokitugasaja_id, saya melihat poster Pricelist dan ingin konsultasi/order tugas.');
+                  setIsPosterModalOpen(false);
                 }}
               >
-                <MessageSquare size={16} />
-                <span>Order via WhatsApp Sekarang</span>
+                <MessageCircle size={16} />
+                <span>Konsultasi / Order via WhatsApp</span>
               </button>
             </div>
           </div>

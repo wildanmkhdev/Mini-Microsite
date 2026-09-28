@@ -2,28 +2,32 @@
   --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  /* Clean White / Light Frosted Glass Theme */
-  --bg-light: #f5f7fb;
+  /* Clean Solid Theme (No Purple, No Gradients) */
+  --bg-main: #f8fafc;
   --text-main: #0f172a;
   --text-secondary: #475569;
   --text-muted: #64748b;
 
-  /* Frosted White Glass Panels */
-  --glass-bg: rgba(255, 255, 255, 0.72);
-  --glass-bg-hover: rgba(255, 255, 255, 0.92);
-  --glass-bg-active: rgba(255, 255, 255, 0.98);
-  --glass-border: rgba(255, 255, 255, 0.95);
-  --glass-border-hover: #ffffff;
-  --glass-blur: blur(24px) saturate(180%);
-  --glass-shadow: 0 12px 32px -6px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03), inset 0 1px 1px 0 #ffffff;
+  /* Primary Brand Solid Colors */
+  --brand-navy: #0e294b;
+  --brand-blue: #0284c7;
+  --brand-blue-hover: #0369a1;
+  --brand-wa: #25d366;
+  --brand-wa-dark: #16a34a;
 
-  /* Vibrant Accent Gradient */
-  --accent-gradient: linear-gradient(90deg, #7c3aed 0%, #a855f7 50%, #f97316 100%);
+  /* Frosted White Glass Panels */
+  --glass-bg: rgba(255, 255, 255, 0.88);
+  --glass-bg-hover: #ffffff;
+  --glass-bg-active: #ffffff;
+  --glass-border: #e2e8f0;
+  --glass-border-hover: #cbd5e1;
+  --glass-blur: blur(20px);
+  --glass-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
 
   /* Dimensions & Radius */
   --radius-pill: 9999px;
-  --radius-card: 22px;
-  --radius-inner: 14px;
+  --radius-card: 20px;
+  --radius-inner: 12px;
 }
 
 * {
@@ -35,7 +39,7 @@
 
 body {
   font-family: var(--font-body);
-  background-color: var(--bg-light);
+  background-color: var(--bg-main);
   color: var(--text-main);
   min-height: 100vh;
   overflow-x: hidden;
@@ -44,106 +48,36 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Background Atmosphere - Soft Pearlescent & Light Violet Glow on Clean White */
+/* Background Atmosphere - Clean Solid Minimalist */
 .bg-ambient {
   position: fixed;
   inset: 0;
-  overflow: hidden;
   z-index: 0;
   pointer-events: none;
-  background-color: var(--bg-light);
+  background-color: var(--bg-main);
 }
 
 .bg-grid {
-  position: fixed;
-  inset: 0;
-  background-image: 
-    linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
-  background-size: 32px 32px;
-  mask-image: radial-gradient(ellipse at 50% 30%, black 45%, transparent 85%);
-  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 45%, transparent 85%);
-  pointer-events: none;
-  z-index: 0;
+  display: none;
 }
 
 .blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(85px);
-  pointer-events: none;
-  opacity: 0.6;
-  animation: floatOrb 18s ease-in-out infinite alternate;
+  display: none;
 }
 
-/* Soft Lavender Hue */
-.blob-1 {
-  width: 460px;
-  height: 460px;
-  background: radial-gradient(circle, rgba(216, 180, 254, 0.45) 0%, rgba(243, 232, 255, 0.2) 55%, transparent 75%);
-  top: -100px;
-  left: 10%;
-  animation-duration: 13s;
-}
-
-/* Soft Peach / Amber Warmth */
-.blob-2 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(254, 215, 170, 0.45) 0%, rgba(255, 237, 213, 0.2) 50%, transparent 70%);
-  top: 35%;
-  right: -60px;
-  animation-duration: 18s;
-  animation-delay: -4s;
-}
-
-/* Soft Indigo / Sky */
-.blob-3 {
-  width: 380px;
-  height: 380px;
-  background: radial-gradient(circle, rgba(199, 210, 254, 0.45) 0%, rgba(224, 231, 255, 0.2) 50%, transparent 70%);
-  bottom: 22%;
-  left: -60px;
-  animation-duration: 15s;
-  animation-delay: -7s;
-}
-
-/* Pure Frost Base */
-.blob-4 {
-  width: 420px;
-  height: 420px;
-  background: radial-gradient(circle, rgba(233, 213, 255, 0.35) 0%, rgba(254, 215, 170, 0.2) 55%, transparent 75%);
-  bottom: -60px;
-  right: 10%;
-  animation-duration: 20s;
-  animation-delay: -10s;
-}
-
-@keyframes floatOrb {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(20px, -24px, 0) scale(1.06);
-  }
-  100% {
-    transform: translate3d(-18px, 18px, 0) scale(0.96);
-  }
-}
-
-/* Linktree-Style Mobile Mockup Container */
+/* Linktree-Style Mobile Container */
 .app-container {
   position: relative;
   z-index: 1;
   max-width: 440px;
   margin: 0 auto;
-  padding: 3rem 1.25rem 4.5rem;
+  padding: 2.5rem 1.25rem 4rem;
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: 1.5rem;
 }
 
-/* Base Frosted White Glass Panel */
+/* Base White Glass Panel */
 .glass-panel {
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
@@ -151,10 +85,10 @@ body {
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   border-radius: var(--radius-card);
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
 }
 
-/* Linktree Glass Pill Button */
+/* Pill Button */
 .glass-pill-btn {
   width: 100%;
   background: var(--glass-bg);
@@ -169,19 +103,18 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: all 0.2s ease;
   user-select: none;
 }
 
 .glass-pill-btn:hover {
-  background: var(--glass-bg-hover);
-  border-color: var(--glass-border-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.1), inset 0 1px 0 0 #ffffff;
+  background: #ffffff;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
 }
 
 .glass-pill-btn:active {
-  background: var(--glass-bg-active);
   transform: translateY(0);
 }
 
@@ -191,13 +124,12 @@ h1, h2, h3, h4 {
 }
 
 .section-label {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--text-muted);
-  text-align: center;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.75rem;
 }
 
 /* Monochromatic Scrollbar */
@@ -208,6 +140,6 @@ h1, h2, h3, h4 {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(15, 23, 42, 0.15);
+  background: #cbd5e1;
   border-radius: 4px;
 }
