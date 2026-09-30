@@ -9,50 +9,129 @@
   flex-direction: column;
   gap: 0.45rem;
   width: 100%;
+  position: relative;
 }
 
-/* Single Capsule Button (Solid, No Gradient) */
+/* Outer wrapper for bounce movement & glow */
+.wa-beam-outer-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-pill);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+
+/* Ambient glow behind button */
+.wa-ambient-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-pill);
+  background: radial-gradient(circle at 50% 50%, rgba(37, 211, 102, 0.35), transparent 70%);
+  filter: blur(10px);
+  opacity: 0.7;
+  pointer-events: none;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+/* Border Runner Container: masks the rotating conic beam to form the outline */
+.wa-beam-runner {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-pill);
+  padding: 2.5px;
+  overflow: hidden;
+  background: rgba(37, 211, 102, 0.22);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+  display: flex;
+}
+
+/* Spinning Lightning Gradient Beam */
+.wa-spinning-beam {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 650px;
+  height: 650px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    transparent 68%,
+    rgba(37, 211, 102, 0.25) 78%,
+    #10b981 85%,
+    #25d366 92%,
+    #86efac 96%,
+    #ffffff 99%,
+    transparent 100%
+  );
+  animation: waBeamSpin 3s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+@keyframes waBeamSpin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Single Capsule Button (Inside the glowing border) */
 .wa-rotator-btn {
+  position: relative;
+  z-index: 1;
   width: 100%;
   padding: 0.85rem 1.35rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 60px;
+  min-height: 58px;
   cursor: pointer;
   text-decoration: none;
   border-radius: var(--radius-pill);
-  border: 1px solid #e2e8f0;
+  border: none;
   background: #ffffff;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
-  transition: all 0.2s ease;
-  position: relative;
-  overflow: hidden;
+  box-shadow: none;
+  transition: background 0.2s ease;
 }
 
-.wa-rotator-btn:hover {
-  background: #ffffff;
-  border-color: #25d366;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.2);
+/* Hover effects */
+.wa-beam-outer-wrapper:hover {
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: 0 10px 28px rgba(37, 211, 102, 0.3);
 }
 
-.wa-rotator-btn:active {
+.wa-beam-outer-wrapper:hover .wa-ambient-glow {
+  opacity: 1;
+  filter: blur(14px);
+}
+
+.wa-beam-outer-wrapper:hover .wa-spinning-beam {
+  animation-duration: 2s; /* Putaran kilat berputar lebih cepat dan dinamis saat di-hover */
+}
+
+.wa-beam-outer-wrapper:active {
   transform: scale(0.98);
 }
 
-/* Floating Bounce Effect */
+/* Floating Bounce Effect with noticeable, lively movement */
 .wa-bounce-target {
-  animation: waFloatingBounce 3.8s ease-in-out infinite;
-  border-color: rgba(37, 211, 102, 0.4);
+  animation: waFloatingBounce 2.5s ease-in-out infinite;
+}
+
+.wa-beam-outer-wrapper:hover.wa-bounce-target {
+  animation-play-state: paused;
 }
 
 @keyframes waFloatingBounce {
   0%, 100% {
     transform: translateY(0);
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.12);
   }
   50% {
-    transform: translateY(-3px);
+    transform: translateY(-7px);
+    box-shadow: 0 12px 24px rgba(37, 211, 102, 0.28);
   }
 }
 
@@ -136,9 +215,7 @@
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.wa-rotator-btn:hover .wa-action-icon {
+.wa-beam-outer-wrapper:hover .wa-action-icon {
   color: #16a34a;
   transform: translate(2px, -2px);
 }
-
-
