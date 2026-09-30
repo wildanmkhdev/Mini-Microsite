@@ -60,6 +60,16 @@ export default function TestimonialsSlider() {
       comment: 'terimah kasih banyak kak,atas kerja samanya 🫰🏿🫰🏿sekarang aku udah jadi mahasiswa, kakak ingat nggak dulu aku mundar mandir chat kaka mau revisi eh tau taunya udah lulus aja🤣😭',
       project: 'Laporan & Tugas Akademik',
       screenshot: '/testimonials/testi-5.png'
+    },
+    {
+      id: 6,
+      name: 'Klien Sidang PKL',
+      role: 'Siswa / Mahasiswa',
+      rating: '★★★★★',
+      highlight: 'Laporan Langsung ACC Sidang & Nilai Memuaskan',
+      comment: 'KAKK SUMPAHHHH LAPORAN PKL AK LNGSNG DI ACC PAS AK SIDANG PKL 😭💖 BERKAT BANTUAN KAKAK JD LAPORAN AK CPT SELESAI DAN DPT NILAI YG SANGATT MEMUASKANNNNNN, THANK U SO MUCHHHHHHHHHHHH 💖💖🫰🏻🫰🏻',
+      project: 'Laporan PKL & Sidang',
+      screenshot: '/testimonials/testi-6.png'
     }
   ];
 
