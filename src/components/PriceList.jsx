@@ -214,7 +214,7 @@ export default function PriceList() {
 
   const handleOrder = (item) => {
     const text = `Halo Admin @jokitugasaja_id, saya ingin order layanan *${item.title}* (${item.price} ${item.unit || ''}). Mohon bantuan estimasi pengerjaan dan infonya ya kak!`;
-    openRotatedWhatsApp(text, 'random-no-repeat');
+    openRotatedWhatsApp(text, 'round-robin');
   };
 
   return (

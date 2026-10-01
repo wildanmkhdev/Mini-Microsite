@@ -6,8 +6,8 @@ import './WhatsAppAdmin.css';
 export default function WhatsAppAdmin() {
   const handleClickWA = () => {
     const defaultMsg = 'Halo Admin @jokitugasaja_id, saya ingin order joki tugas. Mohon dibantu estimasi harga dan waktu pengerjaan ya kak!';
-    // Menggunakan algoritma link rotator (random non-repeating)
-    openRotatedWhatsApp(defaultMsg, 'random-no-repeat');
+    // Menggunakan algoritma link rotator berurutan (round-robin Tim 1 ke 5)
+    openRotatedWhatsApp(defaultMsg, 'round-robin');
   };
 
   return (
