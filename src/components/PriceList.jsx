@@ -28,7 +28,7 @@ export default function PriceList() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
 
-  // 17 Layanan Resmi Sesuai Poster Jasa Joki Tugas Indonesia
+  // 17 Layanan Resmi Sesuai Poster Jasa JOKITUGASAJA_ID
   const priceItems = [
     {
       id: 1,
@@ -460,7 +460,7 @@ export default function PriceList() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="poster-modal-header">
-              <span className="poster-title-text">Price List Joki Tugas Indonesia</span>
+              <span className="poster-title-text">Price List JOKITUGASAJA_ID</span>
               <button
                 type="button"
                 className="poster-close-btn"
@@ -474,7 +474,7 @@ export default function PriceList() {
             <div className="poster-scroll-stage">
               <img
                 src="/pricelist.png"
-                alt="Poster Resmi Pricelist Joki Tugas Indonesia"
+                alt="Poster Resmi Pricelist JOKITUGASAJA_ID"
                 className="poster-full-img"
               />
             </div>
