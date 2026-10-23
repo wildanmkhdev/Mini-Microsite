@@ -1,7 +1,8 @@
 /**
  * WhatsApp Link Rotator Logic
  * Mendistribusikan chat pelanggan ke beberapa nomor admin (Tim 1 - Tim 5)
- * Berurutan dari Tim 1 -> Tim 2 -> Tim 3 -> Tim 4 -> Tim 5 secara bergantian (round-robin).
+ * Berurutan dari Tim 1 -> Tim 3 secara bergantian (round-robin).
+ * Tim 2, 4, dan 5 dinonaktifkan sementara.
  */
 
 // Helper normalisasi nomor telepon ke format internasional 62...
@@ -19,7 +20,8 @@ export function normalizePhoneNumber(phone) {
   return cleaned;
 }
 
-// Daftar nomor WhatsApp Admin yang disediakan (Berurutan Tim 1 sampai Tim 5)
+// Daftar nomor WhatsApp Admin yang disediakan.
+// `active: false` menonaktifkan nomor dari rotasi tanpa menghapus datanya.
 export const WA_ADMIN_POOL = [
   {
     id: 1,
@@ -28,7 +30,8 @@ export const WA_ADMIN_POOL = [
     displayNumber: '0838-6107-0987',
     rawNumber: '838-6107-0987',
     cleanNumber: normalizePhoneNumber('838-6107-0987'),
-    status: 'online'
+    status: 'online',
+    active: true
   },
   {
     id: 2,
@@ -37,7 +40,8 @@ export const WA_ADMIN_POOL = [
     displayNumber: '0878-3272-4588',
     rawNumber: '087832724588',
     cleanNumber: normalizePhoneNumber('087832724588'),
-    status: 'online'
+    status: 'online',
+    active: false
   },
   {
     id: 3,
@@ -46,7 +50,8 @@ export const WA_ADMIN_POOL = [
     displayNumber: '0857-8466-1543',
     rawNumber: '857-8466-1543',
     cleanNumber: normalizePhoneNumber('857-8466-1543'),
-    status: 'online'
+    status: 'online',
+    active: true
   },
   {
     id: 4,
@@ -55,7 +60,8 @@ export const WA_ADMIN_POOL = [
     displayNumber: '0878-5393-1763',
     rawNumber: '878-5393-1763',
     cleanNumber: normalizePhoneNumber('878-5393-1763'),
-    status: 'online'
+    status: 'online',
+    active: false
   },
   {
     id: 5,
@@ -64,7 +70,8 @@ export const WA_ADMIN_POOL = [
     displayNumber: '0831-7632-6063',
     rawNumber: '831-7632-6063',
     cleanNumber: normalizePhoneNumber('831-7632-6063'),
-    status: 'online'
+    status: 'online',
+    active: false
   }
 ];
 
@@ -80,7 +87,8 @@ const STORAGE_ROTATION_INDEX_KEY = 'jokitugas_wa_rotation_index';
  * @returns {object} Objek data admin terpilih
  */
 export function getRotatedAdmin(strategy = 'round-robin') {
-  const pool = WA_ADMIN_POOL;
+  // Hanya admin yang aktif yang ikut rotasi.
+  const pool = WA_ADMIN_POOL.filter((admin) => admin.active !== false);
   if (!pool || pool.length === 0) return null;
   if (pool.length === 1) return pool[0];
 
