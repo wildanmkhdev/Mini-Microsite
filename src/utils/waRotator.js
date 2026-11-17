@@ -1,8 +1,8 @@
 /**
  * WhatsApp Link Rotator Logic
  * Mendistribusikan chat pelanggan ke beberapa nomor admin (Tim 1 - Tim 5)
- * Berurutan dari Tim 1, Tim 2, Tim 4 secara bergantian (round-robin).
- * Tim 3 dan 5 dinonaktifkan sementara.
+ * Berurutan dari Tim 2, Tim 3, Tim 4 secara bergantian (round-robin).
+ * Tim 1 dan 5 dinonaktifkan.
  */
 
 // Helper normalisasi nomor telepon ke format internasional 62...
@@ -31,7 +31,7 @@ export const WA_ADMIN_POOL = [
     rawNumber: '838-6107-0987',
     cleanNumber: normalizePhoneNumber('838-6107-0987'),
     status: 'online',
-    active: true
+    active: false
   },
   {
     id: 2,
@@ -51,7 +51,7 @@ export const WA_ADMIN_POOL = [
     rawNumber: '857-8466-1543',
     cleanNumber: normalizePhoneNumber('857-8466-1543'),
     status: 'online',
-    active: false
+    active: true
   },
   {
     id: 4,
